@@ -15,6 +15,16 @@ body{
     position: relative; 
     overflow: hidden; /* overflow: hidden; dipakai memang paling bagus dibody, karena untuk mengunci agar ful layar dan memotong gambar yg lebih besar dari layar  */
 }
+.game-container{
+    position: relative;
+
+    width: 1920px;
+    height: 1080px;
+
+    overflow: hidden;
+
+    transform-origin: center center;
+}
 .background {
     position: absolute;   /* 🔥 WAJIB */
     top: 0;
