@@ -1,0 +1,64 @@
+class Pasien:
+    def __init__(self, nama, tarif_kamar):
+        self.nama = nama
+        self.__tarif_kamar = None
+        self.set_tarif_kamar(tarif_kamar)  # pakai setter agar tervalidasi
+
+    # Getter
+    def get_tarif_kamar(self):
+        return self.__tarif_kamar
+
+    # Setter dengan validasi
+    def set_tarif_kamar(self, tarif_baru):
+        if tarif_baru < 100000:
+            raise ValueError("Tarif kamar tidak boleh di bawah Rp100.000")
+        self.__tarif_kamar = tarif_baru
+
+    # Method hitung tagihan dasar
+    def hitung_tagihan(self, lama_inap):
+        return self.__tarif_kamar * lama_inap
+
+
+# =========================
+# Kelas Pasien BPJS
+# =========================
+class PasienBPJS(Pasien):
+    def hitung_tagihan(self, lama_inap):
+        total = super().hitung_tagihan(lama_inap)
+        bayar = total * 0.4  # hanya bayar 40%
+
+        # Diskon tambahan jika lebih dari 10 hari
+        if lama_inap > 10:
+            bayar -= 150000
+
+        return bayar
+
+
+# =========================
+# Kelas Pasien VIP
+# =========================
+class PasienVIP(Pasien):
+    def __init__(self, nama, tarif_kamar, biaya_layanan_spa):
+        super().__init__(nama, tarif_kamar)
+        self.biaya_layanan_spa = biaya_layanan_spa
+
+    def hitung_tagihan(self, lama_inap):
+        total = super().hitung_tagihan(lama_inap)
+        return total + self.biaya_layanan_spa
+
+
+# =========================
+# SIMULASI
+# =========================
+
+# Pasien A (BPJS)
+pasien_a = PasienBPJS("Pak Slamet", 500000)
+tagihan_a = pasien_a.hitung_tagihan(12)
+
+# Pasien B (VIP)
+pasien_b = PasienVIP("Ibu Rosa", 2000000, 1000000)
+tagihan_b = pasien_b.hitung_tagihan(5)
+
+# Output
+print(f"Tagihan Pasien BPJS (Pak Slamet): Rp{tagihan_a:,.0f}")
+print(f"Tagihan Pasien VIP (Ibu Rosa): Rp{tagihan_b:,.0f}")

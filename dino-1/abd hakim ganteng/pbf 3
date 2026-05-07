@@ -1,0 +1,126 @@
+
+print("soal no 1")
+def tambah (a, b):
+ return a + b
+
+def kurang (a, b):
+ return a - b
+
+f_tambah = tambah(10, 4)
+f_kurang = kurang(10, 4)
+print(f_tambah)
+print(f_kurang)
+
+print("soal no 2")
+def terapkan(fungsi, nilai):
+ return fungsi**2
+print(terapkan(9, 16))
+
+def tera(funngs, nila):
+ return nila* 0.5
+print(tera(9, 16))
+
+
+print("soal no 3")
+
+def make_multiplier(faktor):
+    def multiplier(x):
+        return x * faktor
+    return multiplier
+
+kali3 = make_multiplier(3)
+kali7 = make_multiplier(7)
+
+print("kali3(5) =", kali3(5))
+print("kali7(5) =", kali7(5))
+print("kali3(kali7(2)) =", kali3(kali7(2)))
+
+
+print("soal no 4")
+import math
+
+def double(x):
+  return x*2
+def square(x):
+  return x*x
+def negate(x):
+  return -x
+
+list = [double, square, negate]
+print(double(5))
+print(square(5))
+print(negate(5))
+ 
+print("soal no 5")
+kalkulator = {
+    "tambah": lambda a, b: a + b,
+    "kurang": lambda a, b: a - b,
+    "kali": lambda a, b: a * b,
+    "bagi": lambda a, b: a / b
+}
+def hitung(op, a, b):
+    fungsi = kalkulator.get(op)  
+    if fungsi:
+        return fungsi(a, b)
+    return None
+
+print("hitung('tambah', 8, 3) =", hitung("tambah", 8, 3))
+print("hitung('bagi', 10, 4) =", hitung("bagi", 10, 4))
+print("hitung('modulo', 5, 2) =", hitung("modulo", 5, 2))
+
+print("soal no 6")
+def hitung_mundur(n):
+    while n >= 1:
+        yield n
+        n -= 1
+
+for angka in hitung_mundur(5):
+    print(angka, end=", ")
+
+
+print("soal no 7")
+def ganjil_sampai(limit):
+   angka =1
+   while angka <= limit:
+      yield angka
+      angka += 2
+for nilai in ganjil_sampai(15):
+   print(nilai, end="")
+
+print("\n soal no 8")
+
+def kelipatan_tiga():
+    angka = 3
+    while True:
+        yield angka
+        angka += 3
+
+gen = kelipatan_tiga()
+
+print(next(gen))
+print(next(gen))
+print(next(gen))
+print(next(gen))
+print(next(gen))
+print(next(gen))
+
+print("soal no 9")
+
+def fibonacci(n):
+    a, b = 0, 1
+    count = 0
+    while count < n:
+        yield a
+        a, b = b, a + b
+        count += 1
+\
+def filter_genap(gen):
+    hasil = []
+    for nilai in gen:
+        if nilai % 2 == 0:
+            hasil.append(nilai)
+    return hasil
+
+
+hasil = filter_genap(fibonacci(15))
+print("Bilangan Fibonacci genap:", hasil)

@@ -1,0 +1,46 @@
+# Membaca data
+data <- read.csv("/content/insurance.csv")
+
+# Melihat struktur data
+str(data)
+
+# Melihat 6 data pertama
+head(data)
+plot(data$age, data$expenses,
+     main = "Scatter Plot: Age vs Expenses",
+     xlab = "Age",
+     ylab = "Expenses",
+     pch = 19,
+     col = "blue")
+
+plot(data$bmi, data$expenses,
+     main = "Scatter Plot: BMI vs Expenses",
+     xlab = "BMI",
+     ylab = "Expenses",
+     pch = 19,
+     col = "red")
+
+# Memilih variabel numerik
+data_num <- data[, c("age", "bmi", "children", "expenses")]
+
+# Matriks korelasi Pearson
+cor_matrix <- cor(data_num)
+cor_matrix
+cor.test(data$age, data$expenses)
+cor.test(data$bmi, data$expenses)
+install.packages("car")  # jalankan sekali saja
+library(car)
+data$sex <- as.factor(data$sex)
+data$smoker <- as.factor(data$smoker)
+data$region <- as.factor(data$region)
+model <- lm(expenses ~ age + bmi + children + sex + smoker + region, data = data)
+vif(model)
+summary(model)
+shapiro.test(residuals(model))
+install.packages("lmtest")
+library(lmtest)
+
+bptest(model)
+durbinWatsonTest(model)
+par(mfrow = c(2,2))
+plot(model)
