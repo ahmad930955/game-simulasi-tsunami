@@ -436,3 +436,24 @@ let tabrakanLoop = setInterval(() => {
 }, 30);
 
 allIntervals.push(tabrakanLoop);
+// ================== AUTO SCALE ==================
+function scaleGame() {
+
+    const game = document.querySelector(".game-container");
+
+    if (!game) return;
+
+    const baseWidth = 1920;
+    const baseHeight = 1080;
+
+    const scaleX = window.innerWidth / baseWidth;
+    const scaleY = window.innerHeight / baseHeight;
+
+    const scale = Math.min(scaleX, scaleY);
+
+    game.style.transform = `scale(${scale})`;
+}
+
+window.addEventListener("resize", scaleGame);
+
+scaleGame();
