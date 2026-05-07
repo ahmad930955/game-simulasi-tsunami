@@ -1,0 +1,688 @@
+*,
+html,
+body{
+    /* Nonaktifkan highlight saat tap atau drag di seluruh body/game */
+    -webkit-user-select: none;  /* Safari/Chrome */
+    -moz-user-select: none;     /* Firefox */
+    -ms-user-select: none;      /* IE/Edge */
+    user-select: none;          /* Standar modern */
+    -webkit-tap-highlight-color: transparent; /* hilangkan highlight biru di mobile */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    position: relative; 
+    overflow: hidden; /* overflow: hidden; dipakai memang paling bagus dibody, karena untuk mengunci agar ful layar dan memotong gambar yg lebih besar dari layar  */
+}
+.background {
+    position: absolute;   /* 🔥 WAJIB */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;           /* 🔥 paling bawah */
+}
+.backgroundmove{
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 0;
+    left: 0;
+    background-image: url(r7.png);
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background-size:auto 100%;
+
+    animation: slideBackground 5s linear infinite;
+}
+    @keyframes slideBackground{
+        from{background-position: 0 0;}
+        to  {background-position: -2120px 0;}
+} 
+@keyframes gempaBg {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(-5px, 5px); }
+    20% { transform: translate(5px, -5px); }
+    30% { transform: translate(-5px, -5px); }
+    40% { transform: translate(5px, 5px); }
+    50% { transform: translate(-3px, 3px); }
+    60% { transform: translate(3px, -3px); }
+    70% { transform: translate(-2px, -2px); }
+    80% { transform: translate(2px, 2px); }
+    90% { transform: translate(-1px, 1px); }
+    100% { transform: translate(0, 0); }
+}
+
+.gempa {
+    animation: gempaBg 0.3s linear infinite;
+}
+
+.ombak1 {
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 0;
+    left: 0;
+    background-image: url(ombak1.png);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-size: cover;      /* ini kunci FULL layar */
+    background-repeat: no-repeat;
+
+    animation: slideBackground 7s linear infinite;
+}
+#ombak1.geser {
+    animation: geserKeluar 1s ease forwards !important;
+    animation-play-state: running !important;
+}
+
+@keyframes geserKeluar {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+/* Efek berkedip saat terkena meja */
+.sprite-box.terkena {
+    animation: berkedip 0.3s linear 6; /* 5 kali berkedip */
+}
+
+@keyframes berkedip {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.sprite-box{
+    position: absolute;
+    top: 44%;
+    left:auto;
+    width: 354px;
+    height: 352px;
+    z-index: 10;
+    background-size: 708px 352px;
+    background-image: url(frame12.png);
+    background-repeat: no-repeat;
+               /* nama animasi-durasi-jumlah langllah-perullangan */
+}
+@keyframes berjalan-terus{
+    from{background-position: 0px 0px;}
+    to{ background-position: -708px 0px;}
+    }
+.sprite-box{
+    animation: none;
+}
+.berjalan {
+    animation: berjalan-terus 0.2s steps(2) infinite;
+}
+/*.sprite-box.lompat {
+    animation: 
+        berjalan-terus 0.2s steps(2) infinite,
+        lompatAnim 0.5s linear;
+}
+
+@keyframes lompatAnim {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-200px); }
+    100% { transform: translateY(0); }
+}*/
+#meja, #kursi {
+    position: absolute;
+    width: 200px;
+    height: 400px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#meja {
+    top: 50%;
+    left: 100%;
+    background-image: url('meja.png');
+    z-index: 6;
+}
+
+#kursi {
+    height: 200px; /* kurang lebih setengah tinggi background */
+    width: auto;   /* otomatis mengikuti rasio */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.meja-gerak {
+    animation: meja-jalan 4s linear;
+}
+.kursi-gerak {
+    animation: meja-jalan 5s linear;
+}
+
+/* Keyframe animasi dari kanan ke kiri */
+@keyframes meja-jalan {
+    from { left: 100%; }
+    to   { left: -200px; } /* keluar layar kiri */
+}
+
+#btnexit{
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 85%;
+    left: 85%;
+    width: 10%;
+    height:10%;
+    z-index: 100;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#btnexit img {
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    cursor: pointer;
+}
+
+#btnexit img:hover {
+    transform: scale(1.1);
+}
+
+#btnexit img:active {
+    transform: scale(0.95);
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.3);
+}
+.hidden {
+    display: none;
+}
+#hidden {
+    display: none;
+}
+#menu {
+    position: fixed;   /* penting */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: 9999;     /* HARUS paling atas */
+}
+.outmenu{  position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 45%;
+    left: 44%;
+    width: 15%;
+    height:20%;
+    z-index: 99;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scale(3);
+}
+#mulai{
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 50%;
+    left: 50%;
+    width: 10%;
+    height:10%;
+    z-index: 1001;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scale(1.5);
+}
+#mulai img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* hover */
+#mulai:hover {
+    transform: scale(1.7);
+}
+
+/* klik */
+#mulai:active {
+    transform: scale(1.2); /* lebih kecil = efek ditekan */
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.3);}
+.menukeluar{
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 65%;
+    left: 38%;
+    width: 10%;
+    height:10%;
+    z-index: 100;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scale(1.5);
+}
+.menukeluar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* hover */
+.menukeluar:hover {
+    transform: scale(1.7);
+}
+
+/* klik */
+.menukeluar:active {
+    transform: scale(1.2); /* lebih kecil = efek ditekan */
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.3);
+}
+.menulanjut{
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 65%;
+    left: 54%;
+    width: 10%;
+    height:10%;
+    z-index: 100;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: scale(1.5);
+}
+.menulanjut img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* hover */
+.menulanjut:hover {
+    transform: scale(1.7);
+}
+
+/* klik */
+.menulanjut:active {
+    transform: scale(1.2); /* lebih kecil = efek ditekan */
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.3);
+}
+
+#timer {
+    position: fixed;      /* Tetap di posisi meski layar di-scroll */
+    top: 10px;            /* Jarak dari atas */
+    left: 96%;            /* Geser ke tengah horizontal */
+    transform: translateX(-50%); /* Menyeimbangkan agar benar-benar di tengah */
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: brown;
+    z-index: 99;         /* Agar tidak tertutup elemen game lain */
+}
+.paused *:not(.ombak1) {
+    animation-play-state: paused !important;
+}
+
+.p1 {
+   
+    position: absolute;
+    top: 79%;
+    left: -80vw;
+    width: 80vw;
+    height: 20vh;
+    z-index: 16;
+    background: url("p1.png") no-repeat center;
+    background-size: contain;
+}
+.p2 {
+   
+    position: absolute;
+    top: 79%;
+    left: -95vw;
+    width: 80vw;
+    height: 20vh;
+    z-index: 20;
+    background: url("p2.png") no-repeat center;
+    background-size: contain;
+}
+.p3 {
+    position: absolute;
+    top: 79%;
+    left: -95vw;
+    width: 80vw;
+    height: 20vh;
+    z-index: 17;
+    background: url("p3.png") no-repeat center;
+    background-size: contain;
+}
+.p4 {
+    position: absolute;
+    top: 79%;
+    left: -95vw;
+    width: 80vw;
+    height: 20vh;
+    z-index: 18;
+    background: url("p4.png") no-repeat center;
+    background-size: contain;
+}
+.p5 {
+    position: absolute;
+    top: 79%;
+    left: -95vw;
+    width: 80vw;
+    height: 20vh;
+    z-index: 19;
+    background: url("p5.png") no-repeat center;
+    background-size: contain;
+}
+
+.nyawa1 {
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    background-size:contain;
+    background-repeat: no-repeat;
+    top: 7%;
+    left: 74vh;
+    width: 100px;
+    height: 100px;
+    background-image: url(nyawa1.png);
+    z-index: 61;
+
+}
+.nyawa2 {
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    background-size:contain;
+    background-repeat: no-repeat;
+    top: 7%;
+    left: 85vh;
+    width: 100px;
+    height: 100px;
+    background-image: url(nyawa2.png);
+    z-index: 62;
+}
+.nyawa3 {
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    background-size:contain;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    top: 7%;
+    left: 96vh;
+    background-image: url(nyawa3.png);
+    z-index: 63;
+}
+@keyframes denyut {
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.4); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.denyut {
+    animation: denyut 0.3s ease 4;
+}
+#kalahya{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1111; /* HARUS lebih tinggi dari ombak */
+}
+.kalah{  
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 36%;
+    left: 43%;
+    width: 230px;
+    height:235px;
+    z-index: 1112;
+    background-size:contain;
+    background-image: url(kalah.png);
+    background-repeat: no-repeat;
+    transform: scale(3);
+}
+.kalahlagi{  
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 71%;
+    left: 49%;
+    width: 270px;
+    height:130px;
+    z-index: 1116;
+    background-image: url(kalahlagi.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+   
+}
+.kalahlagi img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* hover */
+.kalahlagi:hover {
+    transform: scale(1.1);
+}
+
+/* klik */
+.kalahlagi:active {
+    transform: scale(0.9); /* lebih kecil = efek ditekan */
+}
+.kalahkeluar{  
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 71%;
+    left: 36%;
+    width: 270px;
+    height:130px;
+    z-index: 1115;
+    background-image: url(kalahkeluar.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.kalahkeluar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* hover */
+.kalahkeluar:hover {
+    transform: scale(1.1);
+}
+
+/* klik */
+.kalahkeluar:active {
+    transform: scale(0.9); /* lebih kecil = efek ditekan */
+}
+#menangya{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1111; /* HARUS lebih tinggi dari ombak */
+}
+.menang{  
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 36%;
+    left: 43%;
+    width: 230px;
+    height:235px;
+    z-index: 100;
+    background-size:contain;
+    background-image: url(menang.png);
+    background-repeat: no-repeat;
+    transform: scale(3);
+}
+.menanglagi{  
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 71%;
+    left: 49%;
+    width: 270px;
+    height:130px;
+    z-index: 1113;
+    background-size:contain;
+    background-image: url(menanglagi.png);
+    background-repeat: no-repeat;
+   
+}
+.menanglagi img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* hover */
+.menanglagi:hover {
+    transform: scale(1.1);
+}
+
+/* klik */
+.menanglagi:active {
+    transform: scale(0.9); /* lebih kecil = efek ditekan */
+}
+.menangkeluar{  
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 71%;
+    left: 36%;
+    width: 270px;
+    height:130px;
+    z-index: 1114;
+    background-image: url(menangkeluar.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.menangkeluar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* hover */
+.menangkeluar:hover {
+    transform: scale(1.1);
+}
+
+/* klik */
+.menangkeluar:active {
+    transform: scale(0.9); /* lebih kecil = efek ditekan */
+}
+.waktu{
+    position: absolute;
+    top: 61%;
+    left: 45%;
+    width: 150px;
+    height: 35px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    justify-content: center;
+    padding: 20px;
+    font-size: 200%;
+    z-index: 1200;
+    font-weight: 700;
+    
+}
+.hidden {
+    display: none !important;
+}
+.besi{  
+    position: absolute;    /*position: absolute;  dipakai agar gambar melayang tidak menghabiskan ruang, biasanya dikombo dengan z-index*/
+    top: 49%;
+    left: 53%;
+    width: 180px;
+    height:180x;
+    z-index: 1114;
+    background-image: url(besi.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+/* =========================
+   PETA BERGERAK
+========================= */
+.peta{  
+    position: absolute;
+
+    top: 8%;
+    left: 100%;
+
+    width: 700px;
+    height:700px;
+
+    z-index: 4;
+
+    background-image: url(peta.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    animation: jalanPeta 8s linear forwards;
+
+    /* 🔥 awalnya berhenti */
+    animation-play-state: paused;
+}
+
+/* GERAK KANAN -> KIRI */
+@keyframes jalanPeta{
+    from{
+        left: 100%;
+    }
+
+    to{
+        left: -800px;
+    }
+}
+
+/* =========================
+   ZONA
+========================= */
+.zona{  
+    position: absolute;
+
+    /* posisi RELATIF terhadap peta */
+    top: 53%;
+    left: 45%;
+
+    width: 100px;
+    height:100px;
+
+    z-index: 5;
+
+    background-image: url(zona.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    overflow: visible;
+}
+
+/* GELOMBANG 1 */
+.zona::before{
+    content: "";
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    border: 6px solid rgba(255,0,0,0.8);
+
+    transform: translate(-50%, -50%) scale(0.2);
+
+    animation: zonaWave 2s linear infinite;
+}
+
+/* GELOMBANG 2 */
+.zona::after{
+    content: "";
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    border: 6px solid rgba(255,0,0,0.5);
+
+    transform: translate(-50%, -50%) scale(0.2);
+
+    animation: zonaWave 2s linear infinite;
+    animation-delay: 1s;
+}
+
+/* ANIMASI GELOMBANG */
+@keyframes zonaWave{
+    0%{
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 1;
+    }
+
+    100%{
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 0;
+    }
+}
